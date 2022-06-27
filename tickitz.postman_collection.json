@@ -1,0 +1,729 @@
+{
+	"info": {
+		"_postman_id": "b14c96b0-c782-428d-b834-e11e6f0dbd82",
+		"name": "tickitz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "movies",
+			"item": [
+				{
+					"name": "get all movie",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ad8d10d1-4579-4476-8ddb-8307fe178580",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/movies/?field=title&sort=asc&keyword=l",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								""
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "Jun",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "title"
+								},
+								{
+									"key": "sort",
+									"value": "asc"
+								},
+								{
+									"key": "keyword",
+									"value": "l"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get details movie",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "12a89fec-897a-4b60-9f71-94df04eb2d6c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/movies/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"1"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "Jun",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Violet Evergarden",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"value": "lionkin.pgn",
+									"type": "text"
+								},
+								{
+									"key": "release_date",
+									"value": "2022-02-20",
+									"type": "text"
+								},
+								{
+									"key": "director",
+									"value": "haha",
+									"type": "text"
+								},
+								{
+									"key": "synopsis",
+									"value": "Dunia yang dibagi menjadi lima faksi yang dipercaya dapat menjaga kedamaian.",
+									"type": "text"
+								},
+								{
+									"key": "casts",
+									"value": "Simba",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "100 minutes",
+									"type": "text"
+								},
+								{
+									"key": "categories",
+									"value": "Action, Adventure",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/movies/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch movie",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Divergent",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"value": "tenet.png",
+									"type": "text"
+								},
+								{
+									"key": "release_date",
+									"value": "2022-02-20",
+									"type": "text"
+								},
+								{
+									"key": "director",
+									"value": "Louis",
+									"type": "text"
+								},
+								{
+									"key": "synopsis",
+									"value": "Dunia yang dibagi menjadi lima faksi yang dipercaya dapat menjaga kedamaian.",
+									"type": "text"
+								},
+								{
+									"key": "casts",
+									"value": "Four",
+									"type": "text"
+								},
+								{
+									"key": "duration",
+									"value": "100 minutes",
+									"type": "text"
+								},
+								{
+									"key": "categories",
+									"value": "Animation",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/movies/11",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/movies/11",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"movies",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "get booking by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fe4c2cf5-84db-4f45-a3d2-5b1a54890525",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/booking/30",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								"30"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "Jun",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all booking",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ef98986e-b103-4f0a-b5a9-6e3ea9a07aa9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/booking/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								""
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "Jun",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"user_id\":2,\n\"movie_id\":3,\n\"date\":\"2022-02-20\",\n\"time\":\"09:00:00\",\n\"schedule_id\":5,\n\"seat\":[\"J3\",\"J4\",\"J5\",\"J6\"],\n\"payment_method\":\"BRI\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								},
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/booking/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"booking",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "schedule",
+			"item": [
+				{
+					"name": "get details schedule by movieid",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c7aef3cd-24f8-48a6-8334-715ddfd3ce71",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedule/movie/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule",
+								"movie",
+								"5"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "cinema",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "06-20",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get schedule by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f08115ee-d0d0-408b-b0d6-891c8f5cbe63",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedule/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule",
+								"5"
+							],
+							"query": [
+								{
+									"key": "location",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "06-20",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "cinema",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "movie_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "cinema",
+									"value": "ebu.id",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2022-06-18",
+									"type": "text"
+								},
+								{
+									"key": "time",
+									"value": "09:30:00,12:00:00,13:00:00",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "10",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedule/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patch schedule",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "movie_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "cinema",
+									"value": "ebu.id",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2022-06-19",
+									"type": "text"
+								},
+								{
+									"key": "time",
+									"value": "09:00,11:30,13:00",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/schedule/7",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete schedule",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/schedule/9",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"schedule",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

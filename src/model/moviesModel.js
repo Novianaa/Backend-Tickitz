@@ -56,7 +56,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`DELETE FROM movies WHERE id=?`, id, (err) => {
         if (err) {
-          reject(new Error(`SQL : ${err.sqlMessage}`))
+          reject(new Error(`${err.message}`))
         }
         resolve(`id = ${id}`)
       })

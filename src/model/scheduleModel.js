@@ -54,7 +54,7 @@ module.exports = {
         if (err) {
           reject(new Error(`${err.message}`))
         }
-        resolve(result)
+        resolve(`id = ${id}`)
       })
     })
   },
