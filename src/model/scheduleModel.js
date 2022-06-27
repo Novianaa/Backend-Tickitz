@@ -39,7 +39,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`UPDATE schedule SET ? WHERE id=?`, [setData, id], (err, result) => {
         if (err) {
-          reject(new Error(`${errmessage}`))
+          reject(new Error(`${err.message}`))
         }
         resolve({
           id,
@@ -68,6 +68,4 @@ module.exports = {
       })
     })
   },
-
-
 }

@@ -6,7 +6,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM movies WHERE title LIKE '%${keyword}%' ORDER BY ${field} ${sort}`, (err, newResult) => {
         if (err) {
-          reject(new Error(`SQL : ${err.message}`))
+          reject(new Error(`${err.message}`))
         }
         resolve(newResult)
       })
@@ -16,7 +16,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM movies WHERE id=?`, id, (err, newResult) => {
         if (err) {
-          reject(new Error(`SQL : ${err.sqlMessage}`))
+          reject(new Error(`${err.message}`))
         }
         resolve(newResult)
       })
@@ -27,7 +27,7 @@ module.exports = {
 
       db.query(`INSERT INTO movies SET ?`, data, (err, result) => {
         if (err) {
-          reject(new Error(`SQL : ${err.sqlMessage}`))
+          reject(new Error(`${err.message}`))
         }
         resolve({
           id: result.insertId,
@@ -41,7 +41,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`UPDATE movies SET ? WHERE id = ?`, [data, id], (err) => {
         if (err) {
-          reject(new Error(`SQL : ${err.sqlMessage}`))
+          reject(new Error(`${err.message}`))
         }
         resolve({
 

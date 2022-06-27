@@ -13,13 +13,12 @@ module.exports = {
   },
   postSeatBooking: (data) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query('INSERT INTO booking_seat SET ?', data, (err, result) => {
+      db.query('INSERT INTO booking_seat SET ?', data, (err, result) => {
         if (err) {
           reject(new Error(`${err.message}`))
         }
         resolve(result);
       })
-      console.log(dbQuery.sql)
     })
   }
 }
