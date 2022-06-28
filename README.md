@@ -23,7 +23,8 @@
 
 Tickitz adalah aplikasi booking tiket online yang bertujuan untuk mempermudah siapa saja dalam pemesanan tiket. Dari sisi Backend, aplikasi ini dibangun dengan menggunakan nodejs dan mysql sebagai database nya, dan framewoek nextjs menjadi komponen pembangun di sisi frontend.
 
-#### [Flowchart CRUD Tickitz] (https://drive.google.com/drive/folders/1JKvkxeDmfuw9or_mnXf6lJYzqWGLk3La?usp=sharing)
+[Flowchart CRUD Tickitz](https://drive.google.com/drive/folders/1JKvkxeDmfuw9or_mnXf6lJYzqWGLk3La?usp=sharing)
+[Dokumentasi Postman](https://documenter.getpostman.com/view/21597644/UzBsHjji)
 
 ### Built With
 
