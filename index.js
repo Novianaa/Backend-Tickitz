@@ -19,7 +19,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(helmet());
+//support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: false }));
+// support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use('/api/v1', router)
 app.use('/api/v1/*', (req, res) => {

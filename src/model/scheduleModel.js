@@ -16,13 +16,12 @@ module.exports = {
   },
   getPrice: (id) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT price FROM schedule WHERE id=?`, id, (err, result) => {
+      db.query(`SELECT price FROM schedule WHERE id=?`, id, (err, result) => {
         if (err) {
           reject(new Error(`${err.message}`))
         }
         resolve(result)
       })
-      console.log(dbQuery.sql)
     })
   },
   getScheduleById: (id) => {

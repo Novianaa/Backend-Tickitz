@@ -7,11 +7,6 @@ module.exports = {
       let { keyword = '', field = '' || 'title', sort = '' || 'asc' } = req.query
 
       const result = await Movies.getMovies(keyword, field, sort)
-      if (result.length === 0) {
-        return helperWrapper.response(
-          res, 404, `Data not found`, null
-        )
-      }
       const newResult = result.map((item) => {
         const data = {
           ...item,
@@ -79,13 +74,8 @@ module.exports = {
         )
       }
       const { title, cover, release_date, director, synopsis, casts, duration, categories } = req.body
-      if (!title || !cover || !release_date || !director || !synopsis || !casts || !duration || !categories) {
-        return helperWrapper.response(
-          res, 400, `All field must filled`, null
-        )
-      }
       let setData = {
-        title, cover, release_date, director, synopsis, casts, duration, categories, updated_at: new Date(Date.now())
+        ...req.body, updated_at: new Date(Date.now())
       }
       const result = await Movies.updateMovie(setData, id)
       return helperWrapper.response(

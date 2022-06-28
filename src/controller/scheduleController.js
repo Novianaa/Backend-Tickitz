@@ -46,12 +46,8 @@ module.exports = {
         )
       }
       const { movie_id, cinema, location, date, time, price } = req.body
-      if (!movie_id || !cinema || !location || !date || !time || !price) {
-        return helperWrapper.response(
-          res, 400, `All field must filled`, null
-        )
-      }
-      const setData = { movie_id, cinema, location, date, time, price, updated_at: new Date(Date.now()) }
+
+      const setData = { ...req.body, updated_at: new Date(Date.now()) }
 
       const result = await Schedule.updateSchedule(setData, id)
       return helperWrapper.response(res, 200, 'Success update schedule', result)
@@ -84,7 +80,7 @@ module.exports = {
       const { movie_id } = req.params
       let { location = '', date = '' } = req.query
       const result = await Schedule.getScheduleByMovieId(movie_id, location, date)
-      if (result.length === 0) {
+      if (!result.length) {
         return helperWrapper.response(
           res, 404, `Data not found`, null
         )

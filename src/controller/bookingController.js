@@ -6,7 +6,7 @@ const helperWrapper = require('../helpers/wrapper')
 module.exports = {
   postBooking: async (req, res) => {
     try {
-      const { id, user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment, seat } = req.body
+      const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment, seat } = req.body
       const checkPrice = await Schedule.getPrice(schedule_id)
       // let seatArry = seat.split(',')
       let setData = {
@@ -59,6 +59,29 @@ module.exports = {
     } catch (err) {
       return helperWrapper.response(
         res, 400, `Bad request ${err.message}`, null
+      )
+    }
+  },
+  updateBooking: async (req, res) => {
+    try {
+      let { id } = req.params
+      const idCheck = await Booking.getBookingById(id)
+      if (!idCheck.length) {
+        return helperWrapper.response(
+          res, 404, `Movie by id ${id} not found!`, null
+        )
+      }
+      const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment } = req.body
+      let setData = {
+        ...req.body, updated_at: new Date(Date.now())
+      }
+      const result = await Booking.updateBooking(setData, id)
+      return helperWrapper.response(
+        res, 200, `Success update movie`, result
+      )
+    } catch (err) {
+      return helperWrapper.response(
+        res, 400, `Bad request (${err.message})`, null
       )
     }
   }

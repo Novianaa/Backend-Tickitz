@@ -10,7 +10,7 @@ module.exports = {
         }
         resolve({
           id: newResult.insertId,
-          ...newResult,
+          ...setData,
         })
       })
     })
@@ -34,5 +34,20 @@ module.exports = {
         resolve(result)
       })
     })
-  }
+  },
+  updateBooking: (setData, id) => {
+    return new Promise((resolve, reject) => {
+      db.query(`UPDATE booking SET ? WHERE id = ?`, [setData, id], (err) => {
+        if (err) {
+          reject(new Error(`${err.message}`))
+        }
+        resolve({
+
+          id,
+          ...setData,
+
+        })
+      })
+    })
+  },
 }
