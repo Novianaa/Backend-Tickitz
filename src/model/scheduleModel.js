@@ -34,6 +34,38 @@ module.exports = {
       })
     })
   },
+  // getSchedule: (filter1, filter2, limit) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(`SELECT * FROM schedule WHERE location=${filter1}  AND cinema=${filter2} LIMIT ?`, limit, (err, result) => {
+  //       if (err) {
+  //         reject(new Error(`${err.message}`))
+  //       }
+  //       resolve(result)
+  //     })
+  //   })
+  // },
+  getScheduleNow: (today, keyword, sortBy, orderBy, limit) => {
+    return new Promise((resolve, reject) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.date,s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE s.date = '${today}' AND title LIKE '%${keyword}%' ORDER BY ${sortBy} ${orderBy} LIMIT ?`, limit, (err, result) => {
+        if (err) {
+          reject(new Error(`${err.message}`))
+        }
+        resolve(result)
+      })
+      // console.log(dbQuery.sql)
+    })
+  },
+  getScheduleUpComing: (upComing, keyword, sortBy, orderBy, limit) => {
+    return new Promise((resolve, reject) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.date,s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE s.date ='${upComing}' AND title LIKE '%${keyword}%' ORDER BY ${sortBy} ${orderBy} LIMIT ?`, limit, (err, result) => {
+        if (err) {
+          reject(new Error(`${err.message}`))
+        }
+        resolve(result)
+      })
+      console.log(dbQuery.sql)
+    })
+  },
   updateSchedule: (setData, id) => {
     return new Promise((resolve, reject) => {
       db.query(`UPDATE schedule SET ? WHERE id=?`, [setData, id], (err, result) => {
