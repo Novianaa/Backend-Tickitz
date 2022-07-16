@@ -8,7 +8,7 @@ module.exports = {
       const setData = { movie_id, cinema, location, date, time, price }
       if (!setData) {
         return helperWrapper.response(
-          res, 400, `All field must filled`, null
+          res, 400, `All field must filled`, []
         )
       }
 
@@ -16,7 +16,7 @@ module.exports = {
       return helperWrapper.response(res, 201, 'Success create new schedule', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -26,12 +26,12 @@ module.exports = {
       const result = await Schedule.getScheduleById(id)
       if (!result.length) {
         return helperWrapper.response(
-          res, 404, `Data by id ${id} not found!`, null)
+          res, 404, `Data by id ${id} not found!`, [])
       }
       return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },
@@ -41,49 +41,67 @@ module.exports = {
       const result = await Schedule.getScheduleById(filter1, filter2, limit)
       if (!result.length) {
         return helperWrapper.response(
-          res, 404, `Data by id ${id} not found!`, null)
+          res, 404, `Data by id ${id} not found!`, [])
       }
       return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },
   getScheduleNow: async (req, res) => {
     try {
-      let { keyword = '', sortBy = '' || 'title', orderBy = '' || 'asc', limit } = req.query
+      let { keyword = '', orderBy = '' || 'title', sortBy = '' || 'asc', page, limit } = req.query
+      // const { start_date, end_start } = req.body
       limit = Number(limit) || 100
       let today = new Date().toISOString().slice(0, 10)
-      const result = await Schedule.getScheduleNow(today, keyword, sortBy, orderBy, limit)
+      page = Number(page) || 1
+      limit = Number(limit) || 100
+      const offset = page * limit - limit
+      let totalMovie = await Schedule.countScheduleNow(today)
+      totalMovie = totalMovie[0].total
+      const totalPage = Math.ceil(totalMovie / limit)
+      const pageInfo = {
+        page, totalPage, totalMovie
+      }
+      const result = await Schedule.getScheduleNow(today, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
         return helperWrapper.response(
-          res, 404, `Schedule movie not found!`, null)
+          res, 404, `Schedule movie not found!`, [])
       }
-      return helperWrapper.response(res, 200, "Success show details movie", result)
+      return helperWrapper.response(res, 200, "Success show details movie", { result: result, pagination: pageInfo })
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },
   getScheduleUpComing: async (req, res) => {
     try {
-      let { keyword = '', sortBy = '' || 'title', orderBy = '' || 'asc', limit } = req.query
-      limit = Number(limit) || 100
+      let { keyword = '', orderBy = '' || 'title', sortBy = '' || 'asc', page, limit } = req.query
       let date = new Date()
       date.setDate(date.getDate() + 1)
       let upComing = date.toISOString().slice(0, 10)
+      page = Number(page) || 1
+      limit = Number(limit) || 100
+      const offset = page * limit - limit
+      let totalMovie = await Schedule.countScheduleComing(upComing)
+      totalMovie = totalMovie[0].total
+      const totalPage = Math.ceil(totalMovie / limit)
+      const pageInfo = {
+        page, totalPage, totalMovie
+      }
       // console.log(upComing)
-      const result = await Schedule.getScheduleUpComing(upComing, keyword, sortBy, orderBy, limit)
+      const result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
       }
-      return helperWrapper.response(res, 200, "Success show details movie", result)
+      return helperWrapper.response(res, 200, "Success show details movie", { result: result, pagination: pageInfo })
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },
@@ -94,7 +112,7 @@ module.exports = {
       const idCheck = await Schedule.getScheduleById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `Schedule by id ${id} not found!`, null
+          res, 404, `Schedule by id ${id} not found!`, []
         )
       }
       const { movie_id, cinema, location, date, time, price } = req.body
@@ -105,7 +123,7 @@ module.exports = {
       return helperWrapper.response(res, 200, 'Success update schedule', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -115,7 +133,7 @@ module.exports = {
       const idCheck = await Schedule.getScheduleById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `Schedule by id ${id} not found!`, null
+          res, 404, `Schedule by id ${id} not found!`, []
         )
       }
 
@@ -123,7 +141,7 @@ module.exports = {
       return helperWrapper.response(res, 200, 'Success delete schedule', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -134,7 +152,7 @@ module.exports = {
       const result = await Schedule.getScheduleByMovieId(movie_id, location, date)
       if (result.length === 0) {
         return helperWrapper.response(
-          res, 404, `Data not found`, null
+          res, 404, `Data not found`, []
         )
       }
       const newResult = result.map((item) => {
@@ -148,7 +166,7 @@ module.exports = {
 
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },

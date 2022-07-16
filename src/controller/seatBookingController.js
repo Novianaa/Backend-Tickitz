@@ -9,7 +9,7 @@ module.exports = {
       return helperWrapper.response(res, 200, "Success get data", result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },

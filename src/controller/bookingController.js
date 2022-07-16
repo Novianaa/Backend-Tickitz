@@ -30,7 +30,7 @@ module.exports = {
       return helperWrapper.response(res, 201, 'Success create booking', newResult)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -40,7 +40,7 @@ module.exports = {
       return helperWrapper.response(res, 200, 'Success get booking', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -58,7 +58,7 @@ module.exports = {
       return helperWrapper.response(res, 200, 'Success get booking byid', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -68,7 +68,7 @@ module.exports = {
       const idCheck = await Booking.getBookingById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `Movie by id ${id} not found!`, null
+          res, 404, `Movie by id ${id} not found!`, []
         )
       }
       const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment } = req.body
@@ -81,7 +81,7 @@ module.exports = {
       )
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   }

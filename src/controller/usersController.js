@@ -9,14 +9,13 @@ module.exports = {
       let { keyword = '', sortBy = '' || 'first_name', orderBy = '' || 'asc' } = req.query
       const result = await Users.getUsers(keyword, sortBy, orderBy)
       if (result.length === 0) {
-        return helperWrapper.response(
-          res, 404, `Data not found`, null
+        return helperWrapper.response(res, 404, `Data not found`, []
         )
       }
       return helperWrapper.response(res, 200, "Success get data", result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request ${err.message}`, null
+        res, 400, `Bad request ${err.message}`, []
       )
     }
   },
@@ -26,7 +25,7 @@ module.exports = {
       const idCheck = await Users.getUserById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `User not found!`, null
+          res, 404, `User not found!`, []
         )
       }
       let { first_name, last_name, phone_number } = req.body
@@ -40,7 +39,7 @@ module.exports = {
         res, 200, 'success update profile', result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
+        res, 400, `Bad request (${err.message})`, []
       )
     }
   },
@@ -50,7 +49,7 @@ module.exports = {
       const idCheck = await Users.getUserById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `User not found!`, null
+          res, 404, `User not found!`, []
         )
       }
       let { newPassword, confrimPassword } = req.body
@@ -62,7 +61,7 @@ module.exports = {
       const result = await Users.updatePassword(id, password)
       return helperWrapper.response(res, 200, 'Password changed', req.params)
     } catch (err) {
-      return helperWrapper.response(res, 400, `Bad Request ${err.message}`, null)
+      return helperWrapper.response(res, 400, `Bad Request ${err.message}`, [])
     }
   },
   // updatePhoto: async (req, res) => {
@@ -71,7 +70,7 @@ module.exports = {
   //     const idCheck = await Users.getUserById(id)
 
   //   } catch (err) {
-  //     return helperWrapper.response(res, 400, `Bad Request ${err.message}`, null)
+  //     return helperWrapper.response(res, 400, `Bad Request ${err.message}`, [])
 
   //   }
   // }

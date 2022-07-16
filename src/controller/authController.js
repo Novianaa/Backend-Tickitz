@@ -25,7 +25,11 @@ module.exports = {
   login: async (req, res) => {
     try {
       let { email, password } = req.body
+      if (!email || !password) {
+        return helperWrapper.response(res, 404, 'Fields must be filled')
+      }
       email = email.toLowerCase()
+
       const result = await Auth.login(email, password)
       return helperWrapper.response(res, 201, 'Success login', result)
 

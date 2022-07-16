@@ -5,11 +5,12 @@ const helperWrapper = require('../helpers/wrapper')
 module.exports = {
   getMovies: async (req, res) => {
     try {
-      let { keyword = '', sortBy = '' || 'title', orderBy = '' || 'asc', page, limit } = req.query
-      page = page || 1
-      limit = limit || 100
+      let { keyword = '', orderBy = '' || 'title', sortBy = '' || 'asc', page, limit } = req.query
+      page = Number(page) || 1
+      limit = Number(limit) || 100
       const offset = page * limit - limit
-      const totalMovie = await Movies.countMovie(keyword)
+      let totalMovie = await Movies.countMovie()
+      totalMovie = totalMovie[0].total
       const totalPage = Math.ceil(totalMovie / limit)
       const pageInfo = {
         page, totalPage, totalMovie
@@ -18,7 +19,7 @@ module.exports = {
       const result = await Movies.getMovies(keyword, orderBy, sortBy, limit, offset)
       if (result.length === 0) {
         return helperWrapper.response(
-          res, 404, `Data not found`, null
+          res, 404, `Data not found`, []
         )
       }
       const newResult = result.map((item) => {
@@ -28,7 +29,7 @@ module.exports = {
         }
         return data
       })
-      return helperWrapper.response(res, 200, "Success get data", newResult, pageInfo)
+      return helperWrapper.response(res, 200, "Success get data", { result: newResult, pagination: pageInfo })
     } catch (err) {
       return helperWrapper.response(
         res, 400, `Bad request ${err.message}`, null

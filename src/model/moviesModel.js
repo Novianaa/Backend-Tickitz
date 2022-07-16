@@ -2,9 +2,9 @@ const db = require('../helpers/mysql')
 
 
 module.exports = {
-  getMovies: (keyword, orderBy, sortBy, limit, offset,) => {
+  getMovies: (keyword, orderBy, sortBy, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT * FROM movies WHERE title LIKE '%${keyword}%' ORDER BY ${sortBy} ${orderBy}`, (err, newResult) => {
+      const dbQuery = db.query(`SELECT * FROM movies WHERE title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, newResult) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
@@ -13,9 +13,9 @@ module.exports = {
       // console.log(dbQuery.sql, 'hjkh')
     })
   },
-  countMovie: (keyword) => {
+  countMovie: () => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT COUNT(*) AS total FROM movies WHERE title LIKE '%${keyword}%'`, (err, newResult) => {
+      const dbQuery = db.query(`SELECT COUNT(*) AS total FROM movies`, (err, newResult) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
