@@ -62,9 +62,9 @@ module.exports = {
       let totalMovie = await Schedule.countScheduleNow(today)
       totalMovie = totalMovie[0].total
       const totalPage = Math.ceil(totalMovie / limit)
-      const pageInfo = {
+      const pageInfo = [{
         page, totalPage, totalMovie
-      }
+      }]
       const result = await Schedule.getScheduleNow(today, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
         return helperWrapper.response(

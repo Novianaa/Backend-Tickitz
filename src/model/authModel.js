@@ -43,10 +43,10 @@ module.exports = {
                 expiresIn: '1 day'
               })
               resolve({
-                data: {
-                  token,
-                  user_id: result[0].id
-                },
+
+                token,
+                user_id: result[0].id
+
               })
             } else {
               reject({ message: "Email/Password Salah." })
