@@ -4,9 +4,6 @@ module.exports = {
   isLogin: (req, res, next) => {
     if (req.headers.authorization) {
       let token = req.headers.authorization.split(' ')[1]
-      // if (!token) {
-      //   return helperWrapper.response(res, 401, 'Unauthorized User, Token Required')
-      // } else {
       jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, result) {
         if (err) {
           return helperWrapper.response(res, 403, 'Access Forbidden')

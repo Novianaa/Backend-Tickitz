@@ -12,24 +12,25 @@ module.exports = {
       let totalMovie = await Movies.countMovie()
       totalMovie = totalMovie[0].total
       const totalPage = Math.ceil(totalMovie / limit)
-      const pageInfo = {
-        page, totalPage, totalMovie
-      }
+      // const pageInfo = {
+      //   page, totalPage, totalMovie
+      // }
 
-      const result = await Movies.getMovies(keyword, orderBy, sortBy, limit, offset)
-      if (result.length === 0) {
+      const resultMovie = await Movies.getMovies(keyword, orderBy, sortBy, limit, offset)
+      if (resultMovie.length === 0) {
         return helperWrapper.response(
           res, 404, `Data not found`, []
         )
       }
-      const newResult = result.map((item) => {
+      let result = resultMovie.map((item) => {
         const data = {
           ...item,
           categories: item.categories.split(",")
         }
         return data
       })
-      return helperWrapper.response(res, 200, "Success get data", { result: newResult, pagination: pageInfo })
+      result = { result, page, totalPage, totalMovie }
+      return helperWrapper.response(res, 200, "Success get data", result)
     } catch (err) {
       return helperWrapper.response(
         res, 400, `Bad request ${err.message}`, null
@@ -61,15 +62,17 @@ module.exports = {
   },
   addNewMovie: async (req, res) => {
     try {
-      const { title, release_date, director, synopsis, casts, duration, categories } = req.body
-      const cover = req.file ? req.file.filename : 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
-      console.log(req.file)
-      const data = { title, cover, release_date, director, synopsis, casts, duration, categories }
-      if (!data) {
+      let { title, release_date, director, synopsis, casts, duration, categories, cover } = req.body
+      // const photoDefault = 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
+      cover = req.file ? req.file.filename : 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
+      console.log(req.file, 'klkl')
+
+      if (!title || !cover || !release_date || !director || !synopsis || !casts || !duration || !categories) {
         return helperWrapper.response(
           res, 400, `All field must filled`, null
         )
       }
+      const data = { title, cover, release_date, director, synopsis, casts, duration, categories }
       const result = await Movies.addNewMovie(data)
       return helperWrapper.response(res, 201, "Success create new movie", result)
     } catch (err) {

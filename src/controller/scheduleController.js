@@ -62,15 +62,16 @@ module.exports = {
       let totalMovie = await Schedule.countScheduleNow(today)
       totalMovie = totalMovie[0].total
       const totalPage = Math.ceil(totalMovie / limit)
-      const pageInfo = [{
-        page, totalPage, totalMovie
-      }]
-      const result = await Schedule.getScheduleNow(today, keyword, orderBy, sortBy, limit, offset)
+      // const pageInfo = {
+      //   page, totalPage, totalMovie
+      // }
+      let result = await Schedule.getScheduleNow(today, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
       }
-      return helperWrapper.response(res, 200, "Success show details movie", { result: result, pagination: pageInfo })
+      result = { result, page, totalPage, totalMovie }
+      return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
         res, 400, `Bad request (${err.message})`, []
@@ -89,16 +90,17 @@ module.exports = {
       let totalMovie = await Schedule.countScheduleComing(upComing)
       totalMovie = totalMovie[0].total
       const totalPage = Math.ceil(totalMovie / limit)
-      const pageInfo = {
-        page, totalPage, totalMovie
-      }
+      // const pageInfo = {
+      //   page, totalPage, totalMovie
+      // }
       // console.log(upComing)
-      const result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
+      let result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
       }
-      return helperWrapper.response(res, 200, "Success show details movie", { result: result, pagination: pageInfo })
+      result = { result, page, totalPage, totalMovie }
+      return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
         res, 400, `Bad request (${err.message})`, []

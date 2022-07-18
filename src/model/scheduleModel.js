@@ -24,6 +24,7 @@ module.exports = {
       })
     })
   },
+
   getScheduleById: (id) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM schedule WHERE id=?`, id, (err, result) => {
