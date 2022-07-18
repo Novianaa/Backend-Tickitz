@@ -13,7 +13,8 @@ const fileFilter = (req, file, cb) => {
   if (
     file.mimetype == "image/png" ||
     file.mimetype == "image/jpeg" ||
-    file.mimetype == "image/jpg"
+    file.mimetype == "image/jpg" ||
+    file.mimetype == "image/svg"
   ) {
     cb(null, true);
   } else {
@@ -22,7 +23,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 const limits = { fileSize: 2 * 1024 * 1024 }
-const upload = multer({ storage, fileFilter, limits }).single('cover')
+const upload = multer({ storage, fileFilter, limits }).single('logo')
 
 const uploadFilter = (req, res, next) => {
   upload(req, res, (err) => {
