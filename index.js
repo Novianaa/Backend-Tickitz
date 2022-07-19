@@ -12,7 +12,7 @@ const db = require('./src/helpers/mysql');
 const router = require('./src/routes/index')
 
 var corsOptions = {
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'https://backend-tickitz.herokuapp.com'],
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
