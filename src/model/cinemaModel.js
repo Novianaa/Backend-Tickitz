@@ -8,7 +8,7 @@ module.exports = {
           reject(new Error(`${err.sqlMessage}`))
         }
         resolve({
-          id: newResult.insertId,
+          id: result.insertId,
           ...data,
         })
       })

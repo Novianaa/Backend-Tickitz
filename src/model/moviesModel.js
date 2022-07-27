@@ -26,12 +26,13 @@ module.exports = {
   },
   getMovieById: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM movies WHERE id=?`, id, (err, newResult) => {
+      const dbQuery = db.query(`SELECT * FROM movies WHERE id=?`, id, (err, newResult) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
         resolve(newResult)
       })
+      // console.log(dbQuery.sql)
     })
   },
   addNewMovie: (data) => {

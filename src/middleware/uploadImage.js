@@ -21,7 +21,6 @@ const fileFilter = (req, file, cb) => {
     cb({ message: "Extension Not Allow" }, false);
   }
 }
-
 const limits = { fileSize: 2 * 1024 * 1024 }
 const upload = multer({ storage, fileFilter, limits }).single('logo')
 

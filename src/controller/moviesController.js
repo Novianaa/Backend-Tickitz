@@ -62,9 +62,9 @@ module.exports = {
   },
   addNewMovie: async (req, res) => {
     try {
-      let { title, release_date, director, synopsis, casts, duration, categories, cover } = req.body
+      let { title, release_date, director, synopsis, casts, duration, categories } = req.body
       // const photoDefault = 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
-      cover = req.file ? req.file.filename : 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
+      let cover = req.file ? req.file.filename : 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
       console.log(req.file, 'klkl')
 
       if (!title || !cover || !release_date || !director || !synopsis || !casts || !duration || !categories) {
@@ -93,8 +93,8 @@ module.exports = {
           res, 404, `Movie by id ${id} not found!`, null
         )
       }
-      let { title, cover, release_date, director, synopsis, casts, duration, categories } = req.body
-      cover = req.file ? req.file.filename : null
+      let { title, release_date, director, synopsis, casts, duration, categories } = req.body
+      let cover = req.file ? req.file.filename : idCheck[0].cover
       let setData = {
         ...req.body, cover, updated_at: new Date(Date.now())
       }
@@ -103,7 +103,10 @@ module.exports = {
           if (err) { res, 400, `Error delete file`, null }
         })
       }
+      console.log(cover)
       const result = await Movies.updateMovie(setData, id)
+      // console.log(result)
+
       return helperWrapper.response(
         res, 200, `Success update movie`, result
       )

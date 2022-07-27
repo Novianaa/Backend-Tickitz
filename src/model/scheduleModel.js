@@ -5,7 +5,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`INSERT INTO schedule SET ?`, setData, (err, result) => {
         if (err) {
-          reject(new Error(`${err.message}`))
+          reject(new Error(`${err.sqlMessage}`))
         }
         resolve({
           id: result.insertId,
@@ -18,7 +18,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`SELECT price FROM schedule WHERE id=?`, id, (err, result) => {
         if (err) {
-          reject(new Error(`${err.message}`))
+          reject(new Error(`${err.sqlMessage}`))
         }
         resolve(result)
       })
@@ -29,7 +29,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM schedule WHERE id=?`, id, (err, result) => {
         if (err) {
-          reject(new Error(`${err.message}`))
+          reject(new Error(`${err.sqlMessage}`))
         }
         resolve(result)
       })
@@ -48,7 +48,7 @@ module.exports = {
   },
   getScheduleNow: (today, keyword, orderBy, sortBy, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date,s.end_date,s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${today}%' AND end_date >= '${today}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${today}%' AND end_date >= '${today}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
@@ -70,7 +70,7 @@ module.exports = {
   },
   getScheduleUpComing: (upComing, keyword, orderBy, sortBy, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date,s.end_date,s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${upComing}%' AND end_date >= '${upComing}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${upComing}%' AND end_date >= '${upComing}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
@@ -98,18 +98,31 @@ module.exports = {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
-        resolve(`id = ${id}`)
+        resolve(`delete schedule id ${id}`)
       })
+    })
+  },
+  countScheduleByMovieId: (movie_id, location, date) => {
+    return new Promise((resolve, reject) => {
+      const dbQuery = db.query(`SELECT COUNT(*) AS total FROM schedule WHERE movie_id=? AND location LIKE '%${location}%' AND start_date <= '${date}%' AND end_date >= '${date}%'`, movie_id, (err, result) => {
+        if (err) {
+          reject(new Error(`${err.sqlMessage}`))
+        }
+        resolve(result)
+      })
+      // console.log(dbQuery.sql)
     })
   },
   getScheduleByMovieId: (movie_id, location, date) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT s.id, m.title, s.cinema, p.county, s.date, s.time, s.price FROM schedule AS s JOIN movies AS m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE movie_id=? AND location LIKE '%${location}%' AND date LIKE '%${date}%' ORDER BY date desc`, movie_id, (err, newResult) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, c.name, p.county, s.start_date, s.end_date, s.time, s.price FROM schedule AS s JOIN movies AS m ON m.id=s.movie_id JOIN cinema c ON c.id=s.cinema JOIN place AS p ON p.id=s.location WHERE movie_id=? AND location LIKE '%${location}%' AND start_date <= '${date}%' AND end_date >= '${date}%' ORDER BY start_date desc`, movie_id, (err, newResult) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
         resolve(newResult)
       })
+      console.log(dbQuery.sql)
     })
   },
+
 }
