@@ -95,10 +95,13 @@ module.exports = {
       }
       let { title, release_date, director, synopsis, casts, duration, categories } = req.body
       let cover = req.file ? req.file.filename : idCheck[0].cover
+      if (!title && !release_date && !director && !synopsis && !casts && !duration && !categories && cover === idCheck[0].cover) {
+        return helperWrapper.response(res, 400, `nothing updated`, null)
+      }
       let setData = {
         ...req.body, cover, updated_at: new Date(Date.now())
       }
-      if (cover && idCheck[0].cover) {
+      if (setData.cover !== idCheck[0].cover) {
         fs.unlink(`public/upload/movie/${idCheck[0].cover}`, (err) => {
           if (err) { res, 400, `Error delete file`, null }
         })
@@ -133,9 +136,7 @@ module.exports = {
         res, 200, `Success delete movie`, result
       )
     } catch (err) {
-      return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, null
-      )
+      return helperWrapper.response(res, 400, `Bad request (${err.message})`, null)
     }
   }
 }
