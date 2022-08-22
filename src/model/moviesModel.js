@@ -10,7 +10,7 @@ module.exports = {
         }
         resolve(newResult)
       })
-      console.log(dbQuery.sql, 'hjkh')
+      // console.log(dbQuery.sql, 'hjkh')
     })
   },
   countMovie: () => {

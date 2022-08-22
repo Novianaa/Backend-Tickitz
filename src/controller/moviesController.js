@@ -11,7 +11,6 @@ module.exports = {
       const offset = page * limit - limit
       let totalMovie = await Movies.countMovie()
       totalMovie = totalMovie[0].total
-      const totalPage = Math.ceil(totalMovie / limit)
       // const pageInfo = {
       //   page, totalPage, totalMovie
       // }
@@ -22,6 +21,9 @@ module.exports = {
           res, 404, `Data not found`, []
         )
       }
+      const totalRow = resultMovie.length
+      const totalPage = Math.ceil(totalRow / limit)
+
       let result = resultMovie.map((item) => {
         const data = {
           ...item,
@@ -29,7 +31,7 @@ module.exports = {
         }
         return data
       })
-      result = { result, page, totalPage, totalMovie }
+      result = { result, totalRow, page, totalPage, totalMovie }
       return helperWrapper.response(res, 200, "Success get data", result)
     } catch (err) {
       return helperWrapper.response(

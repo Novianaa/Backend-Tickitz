@@ -50,7 +50,9 @@ module.exports = {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
       }
-      result = { result, page, totalPage, totalMovie }
+      let totalRow = result.length
+      const totalPage = Math.ceil(totalRow / limit)
+      result = { result, totalRow, page, totalPage, totalMovie }
       return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
@@ -72,7 +74,7 @@ module.exports = {
       let result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
       let totalRow = result.length
       const totalPage = Math.ceil(totalRow / limit)
-      console.log(totalPage, totalMovie)
+      // console.log(totalPage, totalMovie)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])

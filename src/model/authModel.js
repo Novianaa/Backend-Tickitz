@@ -16,11 +16,11 @@ module.exports = {
               reject(new Error(`${err.message}`))
             }
             resolve({
-              first_name, last_name, email, phone_number, password
+              first_name, last_name, email, phone_number
 
             })
           })
-          console.log(dbQuery.sql)
+          // console.log(dbQuery.sql)
         }
       })
     })
@@ -33,7 +33,7 @@ module.exports = {
         }
         resolve(result)
       })
-      console.log(dbQuery.sql)
+      // console.log(dbQuery.sql)
     })
   },
 }
