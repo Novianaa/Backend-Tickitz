@@ -65,7 +65,7 @@ module.exports = {
       let { title, release_date, director, synopsis, casts, duration, categories } = req.body
       // const photoDefault = 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
       let cover = req.file ? req.file.filename : 'http://bppl.kkp.go.id/uploads/publikasi/karya_tulis_ilmiah/default.jpg'
-      console.log(req.file, 'klkl')
+      // console.log(req.file, 'klkl')
 
       if (!title || !cover || !release_date || !director || !synopsis || !casts || !duration || !categories) {
         return helperWrapper.response(
