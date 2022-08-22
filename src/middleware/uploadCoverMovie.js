@@ -3,7 +3,7 @@ const helperWrapper = require('../helpers/wrapper')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'public/upload/movie')
+    cb(null, 'https://backend-tickitz.herokuapp.com/static/public/upload/movie')
   },
   filename(req, file, cb) {
     cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname)

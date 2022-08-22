@@ -48,7 +48,7 @@ module.exports = {
   },
   getScheduleNow: (today, keyword, orderBy, sortBy, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${today}%' AND end_date >= '${today}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
+      const dbQuery = db.query(`SELECT s.id, s.movie_id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date <= '${today}%' AND end_date >= '${today}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
@@ -70,7 +70,7 @@ module.exports = {
   },
   getScheduleUpComing: (upComing, keyword, orderBy, sortBy, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date >= '${upComing}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
+      const dbQuery = db.query(`SELECT s.id,s.movie_id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price, m.cover, m.categories FROM schedule s LEFT OUTER JOIN movies m ON m.id=s.movie_id JOIN place AS p ON p.id=s.location WHERE start_date >= '${upComing}%' AND title LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortBy} LIMIT ? OFFSET ?`, [limit, offset], (err, result) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }

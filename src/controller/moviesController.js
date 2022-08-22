@@ -11,9 +11,6 @@ module.exports = {
       const offset = page * limit - limit
       let totalMovie = await Movies.countMovie()
       totalMovie = totalMovie[0].total
-      // const pageInfo = {
-      //   page, totalPage, totalMovie
-      // }
 
       const resultMovie = await Movies.getMovies(keyword, orderBy, sortBy, limit, offset)
       if (resultMovie.length === 0) {
