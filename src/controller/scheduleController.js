@@ -43,7 +43,6 @@ module.exports = {
       const offset = page * limit - limit
       let totalMovie = await Schedule.countScheduleNow(today)
       totalMovie = totalMovie[0].total
-      const totalPage = Math.ceil(totalMovie / limit)
 
       let result = await Schedule.getScheduleNow(today, keyword, orderBy, sortBy, limit, offset)
       if (!result.length) {
