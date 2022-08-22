@@ -62,24 +62,22 @@ module.exports = {
     try {
       let { keyword = '', orderBy = '' || 'title', sortBy = '' || 'asc', page, limit } = req.query
       let date = new Date()
-      date.setDate(date.getDate() + 1)
+      date.setDate(date.getDate())
       let upComing = date.toISOString().slice(0, 10)
       page = Number(page) || 1
       limit = Number(limit) || 100
       const offset = page * limit - limit
       let totalMovie = await Schedule.countScheduleComing(upComing)
       totalMovie = totalMovie[0].total
-      const totalPage = Math.ceil(totalMovie / limit)
-      // const pageInfo = {
-      //   page, totalPage, totalMovie
-      // }
-      // console.log(upComing)
       let result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
+      let totalRow = result.length
+      const totalPage = Math.ceil(totalRow / limit)
+      console.log(totalPage, totalMovie)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
       }
-      result = { result, page, totalPage, totalMovie }
+      result = { result, totalRow, page, totalPage, totalMovie }
       return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
