@@ -73,7 +73,6 @@ module.exports = {
       let result = await Schedule.getScheduleUpComing(upComing, keyword, orderBy, sortBy, limit, offset)
       let totalRow = result.length
       const totalPage = Math.ceil(totalRow / limit)
-      // console.log(totalPage, totalMovie)
       if (!result.length) {
         return helperWrapper.response(
           res, 404, `Schedule movie not found!`, [])
@@ -128,16 +127,15 @@ module.exports = {
   },
   getScheduleByMovieId: async (req, res) => {
     try {
-      const { movie_id } = req.params
-      const { location = '', date, page, limit } = req.query
+      let { movie_id } = req.params
+      let { location = '', date, page, limit } = req.query
       page = Number(page) || 1
       limit = Number(limit) || 100
-      const offset = page * limit - limit
+      let offset = page * limit - limit
       let totalMovie = await Schedule.countScheduleByMovieId(movie_id, location, date)
       totalMovie = totalMovie[0].total
-      const totalPage = Math.ceil(totalMovie / limit)
+      let totalPage = Math.ceil(totalMovie / limit)
       let result = await Schedule.getScheduleByMovieId(movie_id, location, date)
-      console.log(result, 'dsds')
       if (result.length === 0) {
         return helperWrapper.response(
           res, 404, `Data not found`, []
@@ -146,12 +144,12 @@ module.exports = {
       let newResult = result.map((item) => {
         let data = {
           ...item,
-          time: item.time.split(",")
+          time: item.time.split(","), page, totalMovie, totalPage
         }
         return data
       })
-      result = { newResult, page, totalMovie, totalPage }
-      return helperWrapper.response(res, 200, "Success show details movie", result)
+      result = { newResult }
+      return helperWrapper.response(res, 200, "Success show details movie", result.newResult)
 
     } catch (err) {
       return helperWrapper.response(
