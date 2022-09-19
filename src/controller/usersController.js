@@ -19,6 +19,22 @@ module.exports = {
       )
     }
   },
+  getUserById: async (req, res) => {
+    try {
+      let { id } = req.query
+      id = req.decodeToken.user_id
+      const result = await Users.getUserById(id)
+      if (result.length === 0) {
+        return helperWrapper.response(res, 404, `User not found!`, []
+        )
+      }
+      return helperWrapper.response(res, 200, "Success get data", result)
+    } catch (err) {
+      return helperWrapper.response(
+        res, 400, `Bad request ${err.message}`, []
+      )
+    }
+  },
   updateProfile: async (req, res) => {
     try {
       const { id } = req.params
