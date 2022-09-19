@@ -115,7 +115,7 @@ module.exports = {
   },
   getScheduleByMovieId: (movie_id, location, date) => {
     return new Promise((resolve, reject) => {
-      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price FROM schedule AS s JOIN movies AS m ON m.id=s.movie_id  JOIN place AS p ON p.id=s.location WHERE movie_id=? AND county = '${location}' AND start_date <= '${date}%' AND end_date >= '${date}%' ORDER BY start_date desc`, movie_id, (err, result) => {
+      const dbQuery = db.query(`SELECT s.id, m.title, s.cinema, p.county, s.start_date, s.end_date, s.time, s.price FROM schedule AS s JOIN movies AS m ON m.id=s.movie_id  JOIN place AS p ON p.id=s.location WHERE movie_id=? AND s.location= '${location}' AND start_date <= '${date}%' AND end_date >= '${date}%' ORDER BY start_date desc`, movie_id, (err, result) => {
         if (err) {
           reject(new Error(`${err.message}`))
         }
