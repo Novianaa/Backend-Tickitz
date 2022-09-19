@@ -7,7 +7,7 @@ module.exports = {
   register: async (req, res) => {
     try {
       const { first_name, last_name, email, phone_number, password, role } = req.body
-      const photo = req.file.filename || 'https://divedigital.id/wp-content/uploads/2021/10/1-min.png'
+      const photo = req.file ? req.file.filename : 'https://divedigital.id/wp-content/uploads/2021/10/1-min.png'
       if (role) {
         return helperWrapper.response(res, 404, `Can't input role`)
       }
@@ -20,7 +20,7 @@ module.exports = {
       const result = await Auth.register(first_name, last_name, email, phone_number, password)
       return helperWrapper.response(res, 201, 'Success create new acount', result)
     } catch (err) {
-      return helperWrapper.response(res, 404, `Bad request ${err.message}`)
+      return helperWrapper.response(res, 400, `Bad request ${err.message}`)
     }
   },
   login: async (req, res) => {
