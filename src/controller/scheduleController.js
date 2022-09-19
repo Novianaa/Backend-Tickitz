@@ -135,6 +135,9 @@ module.exports = {
       let totalMovie = await Schedule.countScheduleByMovieId(movie_id, location, date)
       totalMovie = totalMovie[0].total
       let totalPage = Math.ceil(totalMovie / limit)
+      if (!location) {
+        return helperWrapper.response(res, 400, "Location must be filled", [])
+      }
       let result = await Schedule.getScheduleByMovieId(movie_id, location, date)
       if (result.length === 0) {
         return helperWrapper.response(
