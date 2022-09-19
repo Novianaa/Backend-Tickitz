@@ -4,7 +4,7 @@ module.exports = {
 
   postBooking: (setData) => {
     return new Promise((resolve, reject) => {
-      db.query(`INSERT INTO booking SET ?`, setData, (err, newResult) => {
+      const dbQuery = db.query(`INSERT INTO booking SET ?`, setData, (err, newResult) => {
         if (err) {
           reject(new Error(`${err.message}`))
         }
@@ -13,6 +13,7 @@ module.exports = {
           ...setData,
         })
       })
+      console.log(dbQuery.sql)
     })
   },
   getBooking: () => {

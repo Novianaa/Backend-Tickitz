@@ -8,10 +8,9 @@ module.exports = {
     try {
       const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment, seat } = req.body
       const checkPrice = await Schedule.getPrice(schedule_id)
-      console.log(checkPrice)
       // let seatArry = seat.split(',')
       let setData = {
-        user_id, movie_id, date, time, schedule_id, total_ticket: seat.length, total_payment: checkPrice[0].price * seat.length, payment_method, status_payment: 'Pending'
+        user_id: req.decodeToken.user_id, movie_id, date, time, schedule_id, total_ticket: seat.length, total_payment: checkPrice[0].price * seat.length, payment_method, status_payment: 'Pending'
       }
       // total_payment = checkPrice[0].price * setData.total_ticket
       const result = await Booking.postBooking(setData)
@@ -74,7 +73,7 @@ module.exports = {
       }
       const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment } = req.body
       let setData = {
-        ...req.body, updated_at: new Date(Date.now())
+        ...req.body, user_id: req.decodeToken.user_id, updated_at: new Date(Date.now())
       }
       const result = await Booking.updateBooking(setData, id)
       return helperWrapper.response(
