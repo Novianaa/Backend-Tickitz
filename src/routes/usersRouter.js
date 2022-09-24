@@ -10,5 +10,4 @@ router.patch('/profile/:id', isLogin, updateProfile)
 router.patch('/password/:id', isLogin, updatePassword)
 // router.patch('/updatephoto/:id', updatePassword)
 
-
 module.exports = router
