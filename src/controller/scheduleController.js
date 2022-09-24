@@ -55,7 +55,7 @@ module.exports = {
       return helperWrapper.response(res, 200, "Success show details movie", result)
     } catch (err) {
       return helperWrapper.response(
-        res, 400, `Bad request (${err.message})`, []
+        res, 400, `Bad request ${err}`, []
       )
     }
   },
