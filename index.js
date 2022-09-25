@@ -26,8 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use('/static', express.static('public'))
-app.use('/v1', router)
-app.use('/v1/*', (req, res) => {
+app.use('/api/v1', router)
+app.use('/api/v1/*', (req, res) => {
   res.status(404).send('URL not found!')
 })
 

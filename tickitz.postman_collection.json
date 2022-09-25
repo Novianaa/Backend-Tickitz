@@ -43,7 +43,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/movies/?field=title&sort=asc&keyword=l",
+							"raw": "localhost:3000/api/v1/movies/?field=title&sort=asc&keyword=l",
 							"host": [
 								"localhost"
 							],
@@ -112,7 +112,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/movies/1",
+							"raw": "localhost:3000/api/v1/movies/1",
 							"host": [
 								"localhost"
 							],
@@ -188,7 +188,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/movies/",
+							"raw": "localhost:3000/api/v1/movies/",
 							"host": [
 								"localhost"
 							],
@@ -254,7 +254,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/v1/movies/11",
+							"raw": "localhost:3000/api/v1/movies/11",
 							"host": [
 								"localhost"
 							],
@@ -275,7 +275,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/movies/11",
+							"raw": "localhost:3000/api/v1/movies/11",
 							"host": [
 								"localhost"
 							],
@@ -324,7 +324,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/booking/30",
+							"raw": "localhost:3000/api/v1/booking/30",
 							"host": [
 								"localhost"
 							],
@@ -391,7 +391,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/booking/",
+							"raw": "localhost:3000/api/v1/booking/",
 							"host": [
 								"localhost"
 							],
@@ -429,7 +429,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/booking/",
+							"raw": "localhost:3000/api/v1/booking/",
 							"host": [
 								"localhost"
 							],
@@ -485,7 +485,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/schedule/movie/5",
+							"raw": "localhost:3000/api/v1/schedule/movie/5",
 							"host": [
 								"localhost"
 							],
@@ -553,7 +553,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/schedule/5",
+							"raw": "localhost:3000/api/v1/schedule/5",
 							"host": [
 								"localhost"
 							],
@@ -629,7 +629,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/schedule/",
+							"raw": "localhost:3000/api/v1/schedule/",
 							"host": [
 								"localhost"
 							],
@@ -685,7 +685,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/v1/schedule/7",
+							"raw": "localhost:3000/api/v1/schedule/7",
 							"host": [
 								"localhost"
 							],
@@ -706,7 +706,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/schedule/9",
+							"raw": "localhost:3000/api/v1/schedule/9",
 							"host": [
 								"localhost"
 							],
