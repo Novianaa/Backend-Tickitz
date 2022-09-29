@@ -3,20 +3,19 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-  register: (first_name, last_name, email, phone_number, password) => {
+  register: (first_name, last_name, email, phone_number, password, photo) => {
     return new Promise((resolve, reject) => {
       bcrypt.hash(password, 10, (err, hashed) => {
         if (err) {
           reject(new Error(`${err.message}`))
         } else {
           password = hashed
-          console.log(password)
           const dbQuery = db.query(`INSERT INTO users(first_name, last_name, email, phone_number	, password) VALUES('${first_name}', '${last_name}', '${email}', '${phone_number}','${password}')`, (err, result) => {
             if (err) {
               reject(new Error(`${err.message}`))
             }
             resolve({
-              first_name, last_name, email, phone_number
+              first_name, last_name, email, phone_number, photo
             })
           })
         }

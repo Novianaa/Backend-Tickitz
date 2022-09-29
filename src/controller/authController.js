@@ -17,7 +17,7 @@ module.exports = {
       if (password.length < 8) {
         return helperWrapper.response(res, 404, 'Password must be more than 8 characters')
       }
-      const result = await Auth.register(first_name, last_name, email, phone_number, password)
+      const result = await Auth.register(first_name, last_name, email, phone_number, password, photo)
       return helperWrapper.response(res, 201, 'Success create new acount', result)
     } catch (err) {
       return helperWrapper.response(res, 400, `Bad request ${err.message}`)
