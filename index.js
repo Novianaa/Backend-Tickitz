@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express()
-const { PORT } = process.env
+const PORT = process.env.PORT || 5000
 // const PORT = port
 const db = require('./src/helpers/mysql');
 const router = require('./src/routes/index')
