@@ -8,12 +8,9 @@ module.exports = {
         if (err) {
           reject(new Error(`${err.message}`))
         }
-        resolve({
-          id: newResult.insertId,
-          ...setData,
-        })
+        resolve({ id: newResult.insertId, ...setData })
       })
-      console.log(dbQuery.sql)
+      // console.log(dbQuery.sql)
     })
   },
   getBooking: () => {

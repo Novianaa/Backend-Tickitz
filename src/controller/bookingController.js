@@ -10,7 +10,7 @@ module.exports = {
       const checkPrice = await Schedule.getPrice(schedule_id)
       // let seatArry = seat.split(',')
       let setData = {
-        user_id: req.decodeToken.user_id, movie_id, date, time, schedule_id, total_ticket: seat.length, total_payment: checkPrice[0].price * seat.length, payment_method, status_payment: 'Pending'
+        user_id: req.decodeToken.user_id, movie_id, date, time, schedule_id, total_ticket: seat.length, total_payment: checkPrice[0].price * seat.length, payment_method: 'NULL', status_payment: 'Pending'
       }
       // total_payment = checkPrice[0].price * setData.total_ticket
       const result = await Booking.postBooking(setData)
@@ -25,8 +25,8 @@ module.exports = {
         }
         SeatBooking.postSeatBooking(setDataSeatBooking)
       })
-      const newResult = { ...setData, seat: seat }
-      // console.log(newResult)
+      const newResult = { id: result.id, ...setData, seat: seat }
+      // console.log('hahaha', newResult)
       return helperWrapper.response(res, 201, 'Success create booking', newResult)
     } catch (err) {
       return helperWrapper.response(
@@ -68,10 +68,10 @@ module.exports = {
       const idCheck = await Booking.getBookingById(id)
       if (!idCheck.length) {
         return helperWrapper.response(
-          res, 404, `Movie by id ${id} not found!`, []
+          res, 404, `Booking by id ${id} not found!`, []
         )
       }
-      const { user_id, movie_id, date, time, schedule_id, total_payment, payment_method, status_payment } = req.body
+      const { payment_method, status_payment } = req.body
       let setData = {
         ...req.body, user_id: req.decodeToken.user_id, updated_at: new Date(Date.now())
       }

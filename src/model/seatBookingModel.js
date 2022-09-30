@@ -9,7 +9,7 @@ module.exports = {
         }
         resolve(result)
       })
-      console.log(dbQuery.sql, 'as')
+      // console.log(dbQuery.sql, 'as')
     })
   },
   postSeatBooking: (data) => {
