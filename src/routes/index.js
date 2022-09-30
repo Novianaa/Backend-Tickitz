@@ -6,6 +6,7 @@ const bookingRoute = require('./bookingRoute')
 const authRouter = require('./authRouter')
 const usersRouter = require('./usersRouter')
 const cinemaRouter = require('./cinemaRouter')
+const seatBooking = require('./seatBookingRoute')
 const { isLogin, isAdmin } = require('../middleware/verifyAuth')
 
 app.use('/auth', authRouter)
@@ -14,5 +15,6 @@ app.use('/cinema', isLogin, isAdmin, cinemaRouter)
 app.use('/schedule', scheduleRoute)
 app.use('/booking', bookingRoute)
 app.use('/users', isLogin, usersRouter)
+app.use('/seat-booking', seatBooking)
 
 module.exports = app
