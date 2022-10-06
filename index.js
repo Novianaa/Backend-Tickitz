@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const helmet = require('helmet');
 const cors = require('cors');
+const path = require('path')
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -25,7 +26,8 @@ app.use(helmet({
 app.use(bodyParser.urlencoded({ extended: false }));
 // support parsing of application/json type post data
 app.use(bodyParser.json());
-app.use('/static', express.static('public'))
+// app.use('/static', express.static('public'))
+app.use('/static', express.static(path.join(__dirname, 'public/upload/movie')));
 app.use('/api/v1', router)
 app.use('/api/v1/*', (req, res) => {
   res.status(404).send('URL not found!')

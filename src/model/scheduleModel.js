@@ -3,7 +3,7 @@ const db = require('../helpers/mysql')
 module.exports = {
   addNewSchedule: (setData) => {
     return new Promise((resolve, reject) => {
-      db.query(`INSERT INTO schedule SET ?`, setData, (err, result) => {
+      const dbQuery = db.query(`INSERT INTO schedule SET ?`, setData, (err, result) => {
         if (err) {
           reject(new Error(`${err.sqlMessage}`))
         }
@@ -12,6 +12,7 @@ module.exports = {
           ...setData,
         })
       })
+      // console.log(dbQuery.sql)
     })
   },
   getPrice: (id) => {
