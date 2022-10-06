@@ -36,7 +36,7 @@ module.exports = {
   },
   getScheduleNow: async (req, res) => {
     try {
-      let { keyword = '', orderBy = '' || 'title', sortBy = '' || 'asc', page, limit } = req.query
+      let { keyword = '', orderBy = '' || 'cinema', sortBy = '' || 'asc', page, limit } = req.query
       let today = new Date().toISOString().slice(0, 10)
       page = Number(page) || 1
       limit = Number(limit) || 100
