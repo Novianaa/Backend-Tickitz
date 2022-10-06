@@ -76,7 +76,7 @@ module.exports = {
         }
         resolve(result)
       })
-      // console.log(dbQuery.sql)
+      console.log(dbQuery.sql)
     })
   },
   updateSchedule: (setData, id) => {
